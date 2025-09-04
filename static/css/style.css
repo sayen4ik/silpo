@@ -1,0 +1,163 @@
+:root{
+  --phone-w: 420px;
+  --bez: 14px;
+  --radius: 36px;
+
+  --ctrl-h: 92px;
+  --ctrl-gap: 12px;
+  --ctrl-bg: rgba(255,255,255,.6);
+  --ctrl-border: rgba(0,0,0,.15);
+  --ctrl-fg: #e65050;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  background: #e9ecef;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+}
+
+/* Корпус "смартфона" */
+.phone{
+  width: var(--phone-w);
+  aspect-ratio: 9 / 16;
+  height: calc(var(--phone-w) * 16 / 9); /* fallback */
+  border-radius: var(--radius);
+  box-shadow:
+     0 8px 24px rgba(16,24,40,.18),
+     0 2px 8px rgba(16,24,40,.12),
+     inset 0 0 0 var(--bez) #111;
+  position: relative;
+  overflow: hidden;
+  margin: 24px auto;
+}
+
+/* Внутрішній екран */
+.screen{
+  position: absolute;
+  inset: calc(var(--bez) + 6px);
+  border-radius: calc(var(--radius) - 10px);
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Сцена */
+.stage{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Фон гри */
+#gameBg{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Хмаринки */
+.cloud{
+  position: absolute;
+  height: auto;
+  z-index: 1;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, left;
+  opacity: 0.85;
+}
+#cloud1{ width: 35%; top: 15%; left: -40%; animation-name: cloudMove1; animation-duration: 30s; animation-delay: -5s;  }
+#cloud2{ width: 45%; top: 35%; left: -60%; animation-name: cloudMove2; animation-duration: 50s; animation-delay: -25s; opacity:.75; }
+#cloud3{ width: 55%; top: 55%; left: -55%; animation-name: cloudMove3; animation-duration: 70s; animation-delay: -40s; opacity:.9;  }
+
+@keyframes cloudMove1 { 0% { left: -50%; } 100% { left: 110%; } }
+@keyframes cloudMove2 { 0% { left: -60%; transform: scaleX(1.1);} 100% { left: 110%; transform: scaleX(1.1);} }
+@keyframes cloudMove3 { 0% { left: -55%; transform: scaleY(.85);} 100% { left: 110%; transform: scaleY(.85);} }
+
+#gameCanvas{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+/* Обгортка персонажа */
+#asparagusWrap{
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, top, left, width, height;
+  z-index: 3;
+}
+.lottieInner{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  opacity: 1;
+}
+
+/* HUD калібратора */
+.calib-hud{
+  position: absolute; top: 10px; left: 10px;
+  padding: 6px 8px;
+  background: rgba(0,0,0,.6);
+  color: #fff; font: 12px/1.3 monospace;
+  border-radius: 6px;
+  user-select: none;
+  pointer-events: none;
+  z-index: 5;
+}
+.hidden{ display:none !important; }
+
+/* ===== ЕКРАННІ КНОПКИ КЕРУВАННЯ ===== */
+.touchControls{
+  position: absolute;
+  left: 10px; right: 10px; bottom: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ctrl-gap);
+  z-index: 6;
+}
+.ctrl{
+  display: grid;
+  place-items: center;
+  height: var(--ctrl-h);
+  background: var(--ctrl-bg);
+  border: 2px solid var(--ctrl-border);
+  border-radius: 16px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--ctrl-fg);
+  user-select: none;
+  touch-action: none;
+  transition: transform .06s ease, background .12s ease;
+}
+.ctrl:active{ transform: scale(.98); background: rgba(255,255,255,.75); }
+@media (hover:hover) and (min-width: 900px){ :root{ --ctrl-h: 80px; } }
+
+/* ===== КНОПКА РЕСТАРТУ ===== */
+#retryBtn{
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 28px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background: #ff6b6b;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: background 0.2s ease, transform .12s ease;
+}
+#retryBtn:hover{ background: #ff4b4b; }
+#retryBtn:active{ transform: translateX(-50%) scale(.98); }
