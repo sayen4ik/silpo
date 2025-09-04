@@ -1,13 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="uk">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Моя гра</title>
-  </head>
-  <body>
-    <h1>Гра завантажилась ✅</h1>
-    <!-- Пізніше ти просто вставиш сюди свій HTML / <canvas> / скрипти -->
-    <script src="{{ url_for('static', filename='game.js') }}"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Asparagus — Mobile Proto</title>
+
+  <!-- cache-bust -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=5" />
+
+  <!-- Lottie-web -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
+</head>
+<body>
+  <div class="phone">
+    <div class="screen">
+      <div class="stage">
+        <!-- Фон -->
+        <img id="gameBg" src="{{ url_for('static', filename='img/bg.svg') }}" alt="background" />
+
+        <!-- Хмаринки (3 шт) -->
+        <img id="cloud1" class="cloud" src="{{ url_for('static', filename='img/cloud.svg') }}" alt="cloud" />
+        <img id="cloud2" class="cloud" src="{{ url_for('static', filename='img/cloud.svg') }}" alt="cloud" />
+        <img id="cloud3" class="cloud" src="{{ url_for('static', filename='img/cloud.svg') }}" alt="cloud" />
+
+        <!-- Ігрове полотно -->
+        <canvas id="gameCanvas" width="390" height="780"></canvas>
+
+        <!-- Обгортка Lottie, що обертається разом із платформою -->
+        <div id="asparagusWrap">
+          <div id="lottieBase"     class="lottieInner"></div>
+          <div id="lottieRight"    class="lottieInner"></div>
+          <div id="lottieLeft"     class="lottieInner"></div>
+          <div id="lottieRightBal" class="lottieInner"></div>
+          <div id="lottieLeftBal"  class="lottieInner"></div>
+        </div>
+
+        <!-- Екранні елементи керування -->
+        <div class="touchControls" id="touchControls" aria-label="On-screen controls">
+          <div class="ctrl" id="btnLeft"  aria-label="Move left">
+            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+              <path d="M15 4L7 12l8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="ctrl" id="btnRight" aria-label="Move right">
+            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+              <path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Кнопка рестарту після програшу -->
+        <button id="retryBtn" class="hidden">Спробувати ще</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/game.js') }}?v=5"></script>
+</body>
 </html>
+
