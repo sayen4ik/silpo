@@ -1,106 +1,153 @@
 :root{
-  --phone-w: 420px;
+  --phone-w: 420px;  /* ширина «мобільної рамки» */
   --bez: 14px;
   --radius: 36px;
 
-  --ctrl-h: 92px;
-  --ctrl-gap: 12px;
-  --ctrl-bg: rgba(255,255,255,.6);
-  --ctrl-border: rgba(0,0,0,.15);
-  --ctrl-fg: #e65050;
+  --ctrl-gap: 16px;
+  --ctrl-h: 72px;
+  --ctrl-pad: 14px 18px;
+
+  --gap: 40px;       /* відстань між телефоном і текстом праворуч */
 }
 
 html, body { height: 100%; }
-body {
+
+body{
   margin: 0;
-  display: grid;
-  place-items: center;
-  background: #e9ecef;
+  display: block;
+  background: #fff;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
 }
 
-/* Корпус "смартфона" */
+/* ===== Презентація ===== */
+#presentation{
+  max-width: 1200px;
+  margin: 0 auto 32px;
+  padding: 0 16px;
+  text-align: center;
+}
+#presentation img{
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+.presentation-text{
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 0 16px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #333;
+  text-align: center;
+}
+
+.presentation-wide{
+  background: #f4f1e4;       /* фон на всю ширину */
+  padding: 32px 0;           /* щоб був відступ зверху/знизу */
+}
+.presentation-wide img{
+  display: block;
+  margin: 0 auto;
+  max-width: 1200px;         /* щоб не розтягувалось більше ніж інші картинки */
+  width: 100%;
+  height: auto;
+}
+
+
+.presentation-wide-green{
+  background: #95e971;       /* фон на всю ширину */
+  padding: 32px 0;           /* щоб був відступ зверху/знизу */
+}
+.presentation-wide-green img{
+  display: block;
+  margin: 0 auto;
+  max-width: 1200px;         /* щоб не розтягувалось більше ніж інші картинки */
+  width: 100%;
+  height: auto;
+}
+
+
+/* ===== Секція гри + правий текст ===== */
+/* Центруємо телефон абсолютним позиціонуванням відносно секції,
+   а текст виставляємо праворуч від центру, не впливаючи на позицію телефону. */
+.game-section{
+  position: relative;
+  max-width: 1200px;
+  margin: 48px auto;
+  padding: 0 16px;
+  min-height: calc(var(--phone-w) * 1.85); /* щоб у секції було місце під телефон */
+}
+
+/* Телефон — строго по центру екрана */
 .phone{
   width: var(--phone-w);
   aspect-ratio: 9 / 16;
-  height: calc(var(--phone-w) * 16 / 9); /* fallback */
   border-radius: var(--radius);
   box-shadow:
      0 8px 24px rgba(16,24,40,.18),
      0 2px 8px rgba(16,24,40,.12),
-     inset 0 0 0 var(--bez) #111;
-  position: relative;
+     inset 0 0 0 var(--bez) #76c174;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   overflow: hidden;
-  margin: 24px auto;
+  display: block;
 }
 
-/* Внутрішній екран */
+/* Екран усередині телефону */
 .screen{
   position: absolute;
   inset: calc(var(--bez) + 6px);
-  border-radius: calc(var(--radius) - 10px);
-  background: #fff;
+  border-radius: calc(var(--radius) - 20px);
+  background: transparent;
+  display: grid;
+  place-items: center;
   overflow: hidden;
 }
-
-/* Сцена */
 .stage{
   position: relative;
   width: 100%;
   height: 100%;
   background: transparent;
   overflow: hidden;
-  isolation: isolate;
 }
-
-/* Фон гри */
-#gameBg{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-/* Хмаринки */
-.cloud{
-  position: absolute;
-  height: auto;
-  z-index: 1;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  will-change: transform, left;
-  opacity: 0.85;
-}
-#cloud1{ width: 35%; top: 15%; left: -40%; animation-name: cloudMove1; animation-duration: 30s; animation-delay: -5s;  }
-#cloud2{ width: 45%; top: 35%; left: -60%; animation-name: cloudMove2; animation-duration: 50s; animation-delay: -25s; opacity:.75; }
-#cloud3{ width: 55%; top: 55%; left: -55%; animation-name: cloudMove3; animation-duration: 70s; animation-delay: -40s; opacity:.9;  }
-
-@keyframes cloudMove1 { 0% { left: -50%; } 100% { left: 110%; } }
-@keyframes cloudMove2 { 0% { left: -60%; transform: scaleX(1.1);} 100% { left: 110%; transform: scaleX(1.1);} }
-@keyframes cloudMove3 { 0% { left: -55%; transform: scaleY(.85);} 100% { left: 110%; transform: scaleY(.85);} }
-
 #gameCanvas{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-}
-
-/* Обгортка персонажа */
-#asparagusWrap{
-  position: absolute;
-  pointer-events: none;
-  will-change: transform, top, left, width, height;
-  z-index: 3;
-}
-.lottieInner{
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  opacity: 1;
 }
+
+/* Фон */
+#gameBg{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  user-select: none; pointer-events: none;
+}
+
+/* ===== Хмаринки ===== */
+.cloud{
+  position: absolute;
+  width: 160px; height: auto;
+  opacity: .9;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.7));
+  user-select: none; pointer-events: none;
+  --sx: 1; --sy: 1;
+  animation: cloudFloat linear infinite;
+  animation-duration: 30s;
+  will-change: transform;
+}
+#cloud1{ top: 8%;  left: -25%; width: 180px; --sx:0.95; animation-duration:30s; animation-delay:-28s; }
+#cloud2{ top: 26%; left: -35%; width: 220px; --sx:1.10; animation-duration:38s; animation-delay:-22s; }
+#cloud3{ top: 42%; left: -30%; width: 120px; --sx:1.12; animation-duration:44s; animation-delay:-18s; }
+@keyframes cloudFloat{
+  0%   { transform: translateX(-120%) scaleX(var(--sx)) scaleY(var(--sy)); }
+  100% { transform: translateX(220%)  scaleX(var(--sx)) scaleY(var(--sy)); }
+}
+
+/* Lottie wrap */
+#asparagusWrap{ position: absolute; pointer-events: none; }
+.lottieInner{ position: absolute; inset: 0; width: 100%; height: 100%; }
 
 /* HUD калібратора */
 .calib-hud{
@@ -109,55 +156,93 @@ body {
   background: rgba(0,0,0,.6);
   color: #fff; font: 12px/1.3 monospace;
   border-radius: 6px;
-  user-select: none;
-  pointer-events: none;
+  user-select: none; pointer-events: none;
   z-index: 5;
 }
-.hidden{ display:none !important; }
+.hidden{ display:none; }
 
-/* ===== ЕКРАННІ КНОПКИ КЕРУВАННЯ ===== */
+/* ===== Контролери ===== */
 .touchControls{
   position: absolute;
-  left: 10px; right: 10px; bottom: 10px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--ctrl-gap);
-  z-index: 6;
-}
-.ctrl{
-  display: grid;
-  place-items: center;
-  height: var(--ctrl-h);
-  background: var(--ctrl-bg);
-  border: 2px solid var(--ctrl-border);
-  border-radius: 16px;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  color: var(--ctrl-fg);
-  user-select: none;
-  touch-action: none;
-  transition: transform .06s ease, background .12s ease;
-}
-.ctrl:active{ transform: scale(.98); background: rgba(255,255,255,.75); }
-@media (hover:hover) and (min-width: 900px){ :root{ --ctrl-h: 80px; } }
-
-/* ===== КНОПКА РЕСТАРТУ ===== */
-#retryBtn{
-  position: absolute;
-  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 14px 28px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #fff;
-  background: #ff6b6b;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  transition: background 0.2s ease, transform .12s ease;
+  bottom: 24px;
+  display: flex;
+  gap: var(--ctrl-gap);
+  padding: 0 var(--ctrl-gap);
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 4;
 }
-#retryBtn:hover{ background: #ff4b4b; }
-#retryBtn:active{ transform: translateX(-50%) scale(.98); }
+.ctrl{
+  width: 180px;
+  height: var(--ctrl-h);
+  background: #f6efe8;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  color: #b8bcc6;
+  user-select: none;
+}
+.ctrl:active { transform: translateY(1px); }
+
+/* Retry */
+#retryBtn{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 24px;
+  height: var(--ctrl-h);
+  padding: var(--ctrl-pad);
+  border: none;
+  border-radius: 18px;
+  background: #f6efe8;
+  color: #b8bcc6;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1;
+  width: calc(100% - (var(--ctrl-gap) * 2));
+  max-width: 100%;
+  display: none;
+  z-index: 5;
+}
+#retryBtn:active{ transform: translateX(-50%) translateY(1px); }
+
+/* ===== Правий текст поруч із центром ===== */
+.side-text{
+  position: absolute;
+  top: 0;
+  /* початок тексту: центр (50%) + половина ширини телефону + проміжок */
+  left: calc(50% + (var(--phone-w) / 2) + var(--gap));
+  max-width: 500px;
+  text-align: left;
+  margin: 0;            /* прибираємо auto з .presentation-text */
+  font-size: 16px;
+}
+
+/* ===== Lottie внизу ===== */
+.lottie-container{
+  max-width: 300px;
+  margin: 48px auto 0px;
+}
+
+
+/* ===== Адаптація: коли місця для двох колонок замало ===== */
+@media (max-width: 1100px){
+  .game-section{
+    min-height: auto;
+  }
+  .phone{
+    position: relative;
+    left: auto;
+    transform: none;
+    margin: 0 auto;              /* залишається по центру в потоці */
+  }
+  .side-text{
+    position: static;            /* стає звичайним блоком під телефоном */
+    margin: 24px auto 0;
+    text-align: center;
+    max-width: min(700px, 92%);
+  }
+}
+
