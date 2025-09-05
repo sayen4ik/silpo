@@ -5,57 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Asparagus — Mobile Proto</title>
 
-  <!-- cache-bust -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=5" />
-
-  <!-- Lottie-web -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=9" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
 </head>
 <body>
-  <div class="phone">
-    <div class="screen">
-      <div class="stage">
-        <!-- Фон -->
-        <img id="gameBg" src="{{ url_for('static', filename='img/bg.svg') }}" alt="background" />
 
-        <!-- Хмаринки (3 шт) -->
-        <img id="cloud1" class="cloud" src="{{ url_for('static', filename='img/cloud.svg') }}" alt="cloud" />
-        <img id="cloud2" class="cloud" src="{{ url_for('static', filename='img/cloud.svg') }}" alt="cloud" />
-        <img id="cloud3" class="cloud" src="{{ url_for('static', filename='img/cloud.svg') }}" alt="cloud" />
-
-        <!-- Ігрове полотно -->
-        <canvas id="gameCanvas" width="390" height="780"></canvas>
-
-        <!-- Обгортка Lottie, що обертається разом із платформою -->
-        <div id="asparagusWrap">
-          <div id="lottieBase"     class="lottieInner"></div>
-          <div id="lottieRight"    class="lottieInner"></div>
-          <div id="lottieLeft"     class="lottieInner"></div>
-          <div id="lottieRightBal" class="lottieInner"></div>
-          <div id="lottieLeftBal"  class="lottieInner"></div>
-        </div>
-
-        <!-- Екранні елементи керування -->
-        <div class="touchControls" id="touchControls" aria-label="On-screen controls">
-          <div class="ctrl" id="btnLeft"  aria-label="Move left">
-            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
-              <path d="M15 4L7 12l8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="ctrl" id="btnRight" aria-label="Move right">
-            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
-              <path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Кнопка рестарту після програшу -->
-        <button id="retryBtn" class="hidden">Спробувати ще</button>
-      </div>
+  <!-- Презентація до гри -->
+  <div id="presentation">
+    <img src="{{ url_for('static', filename='img/presentation-01.png') }}" alt="presentation 1" />
+    <div class="presentation-text">
+      Завжди цікаво що в діалозі запропонує ШІ, тому заглядаю туди,<br/>
+      можливо він надихне на якусь ідею. Також збираю мудборд.
     </div>
+    <img src="{{ url_for('static', filename='img/line.png') }}" alt="line" />
+    <img src="{{ url_for('static', filename='img/presentation-02.png') }}" alt="presentation 2" /></div>
+
+
+    <div class="presentation-wide">
+  <img src="{{ url_for('static', filename='img/presentation-13.png') }}" alt="presentation 3" /></div>
+
+<div id="presentation">
+    <img src="{{ url_for('static', filename='img/presentation-03.png') }}" alt="presentation 4" />
+    <img src="{{ url_for('static', filename='img/presentation-04.png') }}" alt="presentation 5" />
+    
+    <div class="presentation-text">
+      Обрала більш легкий варіант.<br/>
+      Продовгуваті очі краще лягають в довгу форму аспарагуса
+    </div>
+    <img src="{{ url_for('static', filename='img/line.png') }}" alt="line" />
+    <img src="{{ url_for('static', filename='img/presentation-06.png') }}" alt="presentation 6" />
+    <img src="{{ url_for('static', filename='img/line.png') }}" alt="line" />
+    <div class="presentation-text">Карта емоцій</div>
+    <img src="{{ url_for('static', filename='img/line.png') }}" alt="line" />
+</div>
+<div class="presentation-wide-green">
+    <img src="{{ url_for('static', filename='img/presentation-07.png') }}" alt="presentation 7" />
+</div>
+
+<div id="presentation">
+    <img src="{{ url_for('static', filename='img/line.png') }}" alt="line" />
+    <div class="presentation-text">
+      Створила за допомогою ШІ невеличку гру балансер
+      (вайбкодинг рулить).<br/>Робочий прототип
+    </div>
+    <img src="{{ url_for('static', filename='img/line.png') }}" alt="line" />
   </div>
 
-  <script src="{{ url_for('static', filename='js/game.js') }}?v=5"></script>
+
+  <!-- Телефон з грою + текст збоку -->
+  <div class="game-section">
+    <!-- Гра -->
+    <div class="phone">
+      <div class="screen">
+        <div class="stage">
+          <img id="gameBg" src="{{ url_for('static', filename='img/bg.svg') }}" alt="background" />
+
+          <img id="cloud1" class="cloud" src="{{ url_for('static', filename='img/cloud.svg') }}" alt="cloud" />
+          <img id="cloud2" class="cloud" src="{{ url_for('static', filename='img/cloud.svg') }}" alt="cloud" />
+          <img id="cloud3" class="cloud" src="{{ url_for('static', filename='img/cloud.svg') }}" alt="cloud" />
+
+          <canvas id="gameCanvas" width="390" height="780"></canvas>
+
+          <div id="asparagusWrap">
+            <div id="lottieBase"     class="lottieInner"></div>
+            <div id="lottieRight"    class="lottieInner"></div>
+            <div id="lottieLeft"     class="lottieInner"></div>
+            <div id="lottieRightBal" class="lottieInner"></div>
+            <div id="lottieLeftBal"  class="lottieInner"></div>
+          </div>
+
+          <div class="touchControls" id="touchControls" aria-label="On-screen controls">
+            <div class="ctrl" id="btnLeft">
+              <svg viewBox="0 0 24 24" width="28" height="28">
+                <path d="M15 4L7 12l8 8" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="ctrl" id="btnRight">
+              <svg viewBox="0 0 24 24" width="28" height="28">
+                <path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <button id="retryBtn" class="hidden">Спробувати ще</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Текст праворуч -->
+    <div class="presentation-text side-text">
+      👈 Натискайте на стрілочки на екрані чи на клавіатурі, щоб утримувати баланс.<br/><br/>
+      У грі використала декілька анімацій для позицій:<br/><br/>
+
+      
+1. Балансуючий аспарагус<br/>
+2. Завалюється праворуч<br/>
+3. Завалюється ліворуч<br/>
+<br/>
+Для повернення з заваленої позиції до балансуючої видтворювався файл анімації у зворотньому напрямку.<br/>
+<br/>
+Анімації створені базові. Для того, щоб передати ідею. Їх треба допрацьовувати. Анімації створені в рамках обмежень формату lottie JSON і мають малий розмір.
+
+<br/><br/>
+      Логіка гри може бути наприклад такою. Персонаж має достояти якийсь час, 
+      наприклад може завантажуватись лоадер, тоді він досягне рівня просвітленості 
+      чи чогось такого. Платформа може хитатись швидше, більше, на неї може щось падати 
+      чи відбуватись якісь інші перешкоди, наприклад буде дути вітер.
+    </div>
+
+  </div>
+
+  <!-- Презентація після гри -->
+  <div id="presentation">
+    <img src="{{ url_for('static', filename='img/presentation-10.png') }}" alt="presentation 10" />
+    <img src="{{ url_for('static', filename='img/line.png') }}" alt="line" />
+    
+  </div>
+
+  <!-- Lottie анімація -->
+  <div class="lottie-container" id="countAnim"></div>
+<div class="presentation-text">Дякую за увагу<br><br></div>
+
+
+  <script src="{{ url_for('static', filename='js/game.js') }}?v=9"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      lottie.loadAnimation({
+        container: document.getElementById("countAnim"),
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "{{ url_for('static', filename='lottie/count.json') }}"
+      });
+    });
+  </script>
 </body>
 </html>
-
